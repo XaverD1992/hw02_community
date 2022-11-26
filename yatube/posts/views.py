@@ -1,9 +1,12 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Post, Group
+from django.shortcuts import get_object_or_404, render
+
+from yatube.settings import NUMBER_OF_POSTS_PER_PAGE
+
+from .models import Group, Post
 
 
 def index(request):
-    posts = Post.objects.order_by('-pub_date')[:10]
+    posts = Post.objects.select_related('group')[:NUMBER_OF_POSTS_PER_PAGE]
     context = {
         'posts': posts,
     }
@@ -12,7 +15,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    posts = Post.objects.filter(group=group).order_by('-pub_date')[:10]
+    posts = group.posts.all()[:NUMBER_OF_POSTS_PER_PAGE]
     context = {
         'group': group,
         'posts': posts,
