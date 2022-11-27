@@ -11,7 +11,7 @@
     <meta name="msapplication-TileColor" content="#000">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <title>{% block title %} Записи сообщества {{ group.title }} {% endblock %}</title>
+    <title>{% block title %} Последние обновления на сайте {% endblock %}</title>
   </head>
   <body>       
     {% include 'includes/header.html' %}
@@ -20,7 +20,7 @@
         {% block content %}
           Контент не подвезли
         {% endblock %}
-    </div>
+      </div>
     </main>
     {% include 'includes/footer.html' %} 
   </body>
