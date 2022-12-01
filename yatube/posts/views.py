@@ -1,12 +1,17 @@
+import datetime
+
 from django.conf import settings
 from django.shortcuts import get_object_or_404, render
 
-from .models import Group, Post
+from .models import User, Group, Post
 
 
 def index(request):
-    posts = (Post.objects.select_related('group')
-             [:settings.NUMBER_OF_POSTS_PER_PAGE])
+    author = User.objects.get(username='leo')
+    keyword = "утро"
+    start_date = datetime.date(1854, 7, 7)
+    end_date = datetime.date(1854, 7, 21)
+    posts = Post.objects.filter(text__contains=keyword).filter(author=author).filter(pub_date__range=(start_date, end_date))
     context = {
         'posts': posts,
     }
